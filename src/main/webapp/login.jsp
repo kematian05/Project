@@ -3,6 +3,7 @@
 <%@ page import="static java.security.spec.MGF1ParameterSpec.SHA256" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
 <%@ page import="com.google.common.hash.Hashing" %>
+<%@ page import="org.apache.commons.text.StringEscapeUtils" %>
 <%@ page session="true" %>
 
 <!DOCTYPE html>
@@ -18,11 +19,19 @@
     <title>Login</title>
 </head>
 <body>
+<%!
+    private String escapeHtml(String input) {
+        if (input == null) return "";
+        return StringEscapeUtils.escapeHtml4(input);
+    }
+%>
 
 <%
     String error = "";
     String useremail = request.getParameter("useremail");
+    useremail = escapeHtml(useremail);
     String password = request.getParameter("userpassword");
+    password = escapeHtml(password);
 
     if (useremail != null && password != null) {
         String hashedPassword = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();

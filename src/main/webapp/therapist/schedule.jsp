@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page
         import="java.sql.*, java.util.*, java.text.*, java.time.LocalDate, java.time.format.DateTimeFormatter, java.net.URLEncoder" %>
+<%@ page import="org.apache.commons.text.StringEscapeUtils" %>
 <%!
     private void closeQuietly(AutoCloseable resource) {
         if (resource != null) {
@@ -19,6 +20,11 @@
         int actualEnd = Math.min(end, str.length());
         if (start >= actualEnd) return "";
         return str.substring(start, actualEnd);
+    }
+
+    private String escapeHtml(String input) {
+        if (input == null) return "";
+        return StringEscapeUtils.escapeHtml4(input);
     }
 %>
 <%
@@ -47,10 +53,14 @@
     String messageType = "error";
 
     String action = request.getParameter("action");
+    action = escapeHtml(action);
     String idParam = request.getParameter("id");
+    idParam = escapeHtml(idParam);
     String nameParam = request.getParameter("name");
+    nameParam = escapeHtml(nameParam);
 
     String filterDate = request.getParameter("sheduledate");
+    filterDate = escapeHtml(filterDate);
 
     List<Map<String, Object>> sessionList = new ArrayList<>();
     int sessionCount = 0;
@@ -83,6 +93,7 @@
 
         if ("confirm-delete".equals(action)) {
             String idToDeleteStr = request.getParameter("deleteid");
+            idToDeleteStr = escapeHtml(idToDeleteStr);
             if (isNullOrEmpty(idToDeleteStr)) {
                 errorMessage = "Cancellation failed: Missing Session ID.";
             } else {
@@ -155,8 +166,11 @@
 
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         action = request.getParameter("action");
+        action = escapeHtml(action);
         idParam = request.getParameter("id");
+        idParam = escapeHtml(idParam);
         nameParam = request.getParameter("name");
+        nameParam = escapeHtml(nameParam);
 
 %>
 <!DOCTYPE html>

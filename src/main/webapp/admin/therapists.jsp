@@ -131,7 +131,7 @@
             return;
         }
 
-        if ("edit".equals(action) && request.getMethod().equalsIgnoreCase("POST") && request.getParameter("id00") != null) {
+        if ("edit".equals(action) && request.getMethod().equalsIgnoreCase("POST") && escapeHtml(request.getParameter("id00")) != null) {
             String editId = request.getParameter("id00");
             editId = escapeHtml(editId);
             String name = request.getParameter("name");
@@ -369,7 +369,7 @@
                     <form action="therapists.jsp" method="post" class="header-search">
                         <input type="search" name="search" class="input-text header-searchbar"
                                placeholder="Search Therapist name or Email" list="therapists"
-                               value="<%= request.getParameter("search") != null ? request.getParameter("search") : "" %>">&nbsp;&nbsp;
+                               value="<%= escapeHtml(request.getParameter("search")) != null ? escapeHtml(request.getParameter("search")) : "" %>">&nbsp;&nbsp;
                         <datalist id="therapists">
                             <%
                                 PreparedStatement psSearch = null;
@@ -392,7 +392,7 @@
                         </datalist>
                         <input type="Submit" value="Search" class="login-btn btn-primary btn"
                                style="padding-left: 25px;padding-right: 25px;padding-top: 10px;padding-bottom: 10px;">
-                        <% if (request.getParameter("search") != null) { %>
+                        <% if (escapeHtml(request.getParameter("search")) != null) { %>
                         <a href="therapists.jsp" style="text-decoration: none;">
                             <button type="button" class="login-btn btn-primary-soft btn"
                                     style="margin-left: 10px; padding: 10px 15px;">Clear

@@ -3,6 +3,7 @@
         import="java.sql.*, java.util.*, java.text.*, java.time.LocalDate, java.time.format.DateTimeFormatter, java.net.URLEncoder" %>
 <%@ page import="com.google.common.hash.Hashing" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
+<%@ page import="org.apache.commons.text.StringEscapeUtils" %>
 <%!
     private void closeQuietly(AutoCloseable resource) {
         if (resource != null) {
@@ -39,6 +40,11 @@
         }
         return map;
     }
+
+    private String escapeHtml(String input) {
+        if (input == null) return "";
+        return StringEscapeUtils.escapeHtml4(input);
+    }
 %>
 <%
     String useremail = (String) session.getAttribute("user");
@@ -67,9 +73,13 @@
     Map<String, Object> doctorData = null;
 
     String action = request.getParameter("action");
+    action = escapeHtml(action);
     String idParam = request.getParameter("id");
+    idParam = escapeHtml(idParam);
     String nameParam = request.getParameter("name");
+    nameParam = escapeHtml(nameParam);
     String errorParam = request.getParameter("error");
+    errorParam = escapeHtml(errorParam);
 
 
     try {
@@ -107,6 +117,7 @@
 
         if ("confirm-delete".equals(action)) {
             String idToDeleteStr = request.getParameter("id");
+            idToDeleteStr = escapeHtml(idToDeleteStr);
             if (idToDeleteStr != null && idToDeleteStr.equals(String.valueOf(doctorId))) {
                 PreparedStatement psDelDoc = null;
                 PreparedStatement psDelWeb = null;
@@ -147,14 +158,23 @@
 
         if ("edit-submit".equals(action) && "POST".equalsIgnoreCase(request.getMethod())) {
             String docIdStr = request.getParameter("id00");
+            docIdStr = escapeHtml(docIdStr);
             String name = request.getParameter("name");
+            name = escapeHtml(name);
             String email = request.getParameter("email");
+            email = escapeHtml(email);
             String nic = request.getParameter("nic");
+            nic = escapeHtml(nic);
             String tel = request.getParameter("Tele");
+            tel = escapeHtml(tel);
             String specStr = request.getParameter("spec");
+            specStr = escapeHtml(specStr);
             String password = request.getParameter("password");
+            password = escapeHtml(password);
             String cpassword = request.getParameter("cpassword");
+            cpassword = escapeHtml(cpassword);
             String oldemail = request.getParameter("oldemail");
+            oldemail = escapeHtml(oldemail);
 
             int spec = 0;
             int editDocId = 0;
@@ -278,9 +298,11 @@
 
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         action = request.getParameter("action");
+        action = escapeHtml(action);
         idParam = request.getParameter("id");
+        idParam = escapeHtml(idParam);
         nameParam = request.getParameter("name");
-
+        nameParam = escapeHtml(nameParam);
 
 %>
 <!DOCTYPE html>

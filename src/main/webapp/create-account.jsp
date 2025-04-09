@@ -2,6 +2,7 @@
 <%@ page import="java.sql.*, java.util.*, javax.servlet.http.*, javax.servlet.*" %>
 <%@ page import="com.google.common.hash.Hashing" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
+<%@ page import="org.apache.commons.text.StringEscapeUtils" %>
 <%@ page session="true" %>
 
 <!DOCTYPE html>
@@ -23,6 +24,13 @@
 </head>
 <body>
 
+<%!
+    private String escapeHtml(String input) {
+        if (input == null) return "";
+        return StringEscapeUtils.escapeHtml4(input);
+    }
+%>
+
 <%
     String error = "";
     HashMap<String, String> personalDetails = (HashMap<String, String>) session.getAttribute("personal");
@@ -34,9 +42,13 @@
     String dob = personalDetails != null ? personalDetails.get("dob") : "";
 
     String newEmail = request.getParameter("newemail");
+    newEmail = escapeHtml(newEmail);
     String tele = request.getParameter("tele");
+    tele = escapeHtml(tele);
     String newPassword = request.getParameter("newpassword");
+    newPassword = escapeHtml(newPassword);
     String confirmPassword = request.getParameter("cpassword");
+    confirmPassword = escapeHtml(confirmPassword);
 
     if (newEmail != null && tele != null && newPassword != null && confirmPassword != null) {
         if (newPassword.equals(confirmPassword)) {

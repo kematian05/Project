@@ -78,11 +78,17 @@
             try {
                 int clientIdToUpdate = Integer.parseInt(clientIdParam);
                 String name = request.getParameter("edit_name");
+                name = escapeHtml(name);
                 String email = request.getParameter("edit_email");
+                email = escapeHtml(email);
                 String nic = request.getParameter("edit_nic");
+                nic = escapeHtml(nic);
                 String tel = request.getParameter("edit_tel");
+                tel = escapeHtml(tel);
                 String address = request.getParameter("edit_address");
+                address = escapeHtml(address);
                 String dob = request.getParameter("edit_dob");
+                dob = escapeHtml(dob);
 
                 psUpdate = connection.prepareStatement("UPDATE patient SET pname = ?, pemail = ?, pnic = ?, ptel = ?, paddress = ?, pdob = ? WHERE pid = ?");
                 psUpdate.setString(1, name);

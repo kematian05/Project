@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.*, javax.servlet.http.*, javax.servlet.*" %>
+<%@ page import="org.apache.commons.text.StringEscapeUtils" %>
 <%@ page session="true" %>
 
 <!DOCTYPE html>
@@ -15,15 +16,21 @@
     <title>Sign Up</title>
 </head>
 <body>
+<%!
+    private String escapeHtml(String input) {
+        if (input == null) return "";
+        return StringEscapeUtils.escapeHtml4(input);
+    }
+%>
 
 <%
     if (request.getMethod().equalsIgnoreCase("POST")) {
         HashMap<String, String> personalDetails = new HashMap<>();
-        personalDetails.put("fname", request.getParameter("fname"));
-        personalDetails.put("lname", request.getParameter("lname"));
-        personalDetails.put("address", request.getParameter("address"));
-        personalDetails.put("nic", request.getParameter("nic"));
-        personalDetails.put("dob", request.getParameter("dob"));
+        personalDetails.put("fname", escapeHtml(request.getParameter("fname")));
+        personalDetails.put("lname", escapeHtml(request.getParameter("lname")));
+        personalDetails.put("address", escapeHtml(request.getParameter("address")));
+        personalDetails.put("nic", escapeHtml(request.getParameter("nic")));
+        personalDetails.put("dob", escapeHtml(request.getParameter("dob")));
         session.setAttribute("personal", personalDetails);
 
         response.sendRedirect("create-account.jsp");
