@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebContextManager">
+    <option name="state">
+      <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/appointment.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/doctors.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/schedule.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/therapists.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/client/appointment.jsp" value="file://$PROJECT_DIR$/src/main/webapp/client" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/client/booking.jsp" value="file://$PROJECT_DIR$/src/main/webapp/client" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/client/settings.jsp" value="file://$PROJECT_DIR$/src/main/webapp/client" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/client/therapists.jsp" value="file://$PROJECT_DIR$/src/main/webapp/client" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/create-account.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/doctor/patient.jsp" value="file://$PROJECT_DIR$/src/main/webapp/doctor" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/patient/doctors.jsp" value="file://$PROJECT_DIR$/src/main/webapp/patient" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/patient/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp/patient" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/patient/schedule.jsp" value="file://$PROJECT_DIR$/src/main/webapp/patient" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/therapist/appointment.jsp" value="file://$PROJECT_DIR$/src/main/webapp/therapist" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/therapist/schedule.jsp" value="file://$PROJECT_DIR$/src/main/webapp/therapist" />
+      </map>
+    </option>
+  </component>
+</project>
