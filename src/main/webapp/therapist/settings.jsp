@@ -42,7 +42,7 @@
     }
 
     private String escapeHtml(String input) {
-        if (input == null) return "";
+        if (input == null) return null;
         return StringEscapeUtils.escapeHtml4(input);
     }
 %>
@@ -644,7 +644,7 @@
                         <%--                        </tr>--%>
                         <tr>
                             <td><p style="padding: 0;margin: 0;text-align: left;font-size: 25px;font-weight: 500;">Edit
-                                Account Details.</p>Therapist ID : <%= doctorId %><br><br></td>
+                                Account Details.</p></td>
                         </tr>
                         <form action="settings.jsp?action=edit-submit" method="POST" class="add-new-form">
                             <input type="hidden" value="<%= doctorId %>" name="id00">
