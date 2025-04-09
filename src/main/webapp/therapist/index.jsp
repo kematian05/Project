@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.sql.*, java.util.*, java.text.*, java.time.LocalDate, java.time.format.DateTimeFormatter" %>
+<%@ page import="org.apache.commons.text.StringEscapeUtils" %>
 <%!
     private void closeQuietly(AutoCloseable resource) {
         if (resource != null) {
@@ -41,7 +42,7 @@
 
     private String escapeHtml(String input) {
         if (input == null) return "";
-        return input.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;").replace("'", "&#39;");
+        return StringEscapeUtils.escapeHtml4(input);
     }
 %>
 <%
