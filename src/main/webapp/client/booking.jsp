@@ -2,6 +2,7 @@
 <%@ page
         import="java.sql.*, java.util.*, java.text.*, java.time.LocalDate, java.time.format.DateTimeFormatter, java.net.URLEncoder" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="org.apache.commons.text.StringEscapeUtils" %>
 <%!
     private void closeQuietly(AutoCloseable resource) {
         if (resource != null) {
@@ -20,6 +21,10 @@
         int actualEnd = Math.min(end, str.length());
         if (start >= actualEnd) return "";
         return str.substring(start, actualEnd);
+    }
+    private String escapeHtml(String input) {
+        if (input == null) return "";
+        return StringEscapeUtils.escapeHtml4(input);
     }
 %>
 <%
@@ -73,10 +78,13 @@
         closeQuietly(ps);
 
 
-        if ("confirm-booking".equals(request.getParameter("action")) && "POST".equalsIgnoreCase(request.getMethod())) {
+        if ("confirm-booking".equals(escapeHtml(request.getParameter("action"))) && "POST".equalsIgnoreCase(escapeHtml(request.getMethod()))) {
             String scheduleIdStr = request.getParameter("scheduleid");
+            scheduleIdStr = escapeHtml(scheduleIdStr);
             String appoNumStr = request.getParameter("apponum");
+            appoNumStr = escapeHtml(appoNumStr);
             String bookDate = request.getParameter("date");
+            bookDate = escapeHtml(bookDate);
 
             int bookScheduleId = 0;
             int bookAppoNum = 0;
@@ -199,6 +207,7 @@
             scheduleId = bookScheduleId;
         } else {
             String sessionIdStr = request.getParameter("id");
+            sessionIdStr = escapeHtml(sessionIdStr);
             if (isNullOrEmpty(sessionIdStr)) {
                 throw new Exception("Session ID is missing from the request.");
             }

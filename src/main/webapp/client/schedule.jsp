@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page
         import="java.sql.*, java.util.*, java.text.*, java.time.LocalDate, java.time.format.DateTimeFormatter, java.net.URLEncoder" %>
+<%@ page import="org.apache.commons.text.StringEscapeUtils" %>
 <%!
     private void closeQuietly(AutoCloseable resource) {
         if (resource != null) {
@@ -19,6 +20,11 @@
         int actualEnd = Math.min(end, str.length());
         if (start >= actualEnd) return "";
         return str.substring(start, actualEnd);
+    }
+
+    private String escapeHtml(String input) {
+        if (input == null) return "";
+        return StringEscapeUtils.escapeHtml4(input);
     }
 %>
 <%
@@ -50,6 +56,7 @@
     int sessionCount = 0;
 
     String searchKeyword = request.getParameter("search");
+    searchKeyword = escapeHtml(searchKeyword);
     String searchTypeDisplay = "All";
     String insertKeyDisplay = "";
     String quoteDisplay = "";

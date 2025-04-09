@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page
         import="java.sql.*, java.util.*, java.text.*, java.time.LocalDate, java.time.format.DateTimeFormatter, java.net.URLEncoder" %>
+<%@ page import="org.apache.commons.text.StringEscapeUtils" %>
 <%!
     private void closeQuietly(AutoCloseable resource) {
         if (resource != null) {
@@ -37,6 +38,11 @@
         }
         return map;
     }
+
+    private String escapeHtml(String input) {
+        if (input == null) return "";
+        return StringEscapeUtils.escapeHtml4(input);
+    }
 %>
 <%
     String useremail = (String) session.getAttribute("user");
@@ -67,9 +73,13 @@
     int doctorListCount = 0;
 
     String searchKeyword = request.getParameter("search");
+    searchKeyword = escapeHtml(searchKeyword);
     String action = request.getParameter("action");
+    action = escapeHtml(action);
     String idParam = request.getParameter("id");
+    idParam = escapeHtml(idParam);
     String nameParam = request.getParameter("name");
+    nameParam = escapeHtml(nameParam);
 
 
     try {
@@ -134,8 +144,11 @@
 
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         action = request.getParameter("action");
+        action = escapeHtml(action);
         idParam = request.getParameter("id");
+        idParam = escapeHtml(idParam);
         nameParam = request.getParameter("name");
+        nameParam = escapeHtml(nameParam);
 
 %>
 <!DOCTYPE html>
