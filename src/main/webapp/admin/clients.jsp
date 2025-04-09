@@ -34,8 +34,11 @@
 
     String today = "";
     String searchKeyword = request.getParameter("search");
+    searchKeyword = escapeHtml(searchKeyword);
     String action = request.getParameter("action");
+    action = escapeHtml(action);
     String clientIdParam = request.getParameter("id");
+    clientIdParam = escapeHtml(clientIdParam);
 
     String viewClientId = null;
     String editClientId = null;
@@ -292,7 +295,7 @@
                     <form action="clients.jsp" method="post" class="header-search">
                         <input type="search" name="search" class="input-text header-searchbar"
                                placeholder="Search Client Name or Email" list="client"
-                               value="<%= searchKeyword != null ? escapeHtml(searchKeyword) : "" %>">&nbsp;&nbsp;
+                               value="<%= searchKeyword != null ? searchKeyword : "" %>">&nbsp;&nbsp;
                         <datalist id="client">
                             <%
                                 PreparedStatement psDatalist = null;

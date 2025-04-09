@@ -51,10 +51,13 @@
     String deleteStatus = null;
 
     String action = request.getParameter("action");
+    action = escapeHtml(action);
     String idParam = request.getParameter("id");
+    idParam = escapeHtml(idParam);
 
     if ("confirm-delete".equals(action)) {
         String idToDeleteStr = request.getParameter("deleteid");
+        idToDeleteStr = escapeHtml(idToDeleteStr);
         Connection deleteConn = null;
         PreparedStatement deletePs = null;
         try {
@@ -87,6 +90,7 @@
     }
 
     deleteStatus = request.getParameter("deleteStatus");
+    deleteStatus = escapeHtml(deleteStatus);
     if (deleteStatus != null) {
         switch (deleteStatus) {
             case "success":
@@ -106,10 +110,15 @@
     }
 
     String filterDate = request.getParameter("sheduledate");
+    filterDate = escapeHtml(filterDate);
     String filterDocId = request.getParameter("docid");
+    filterDocId = escapeHtml(filterDocId);
     String nameParam = request.getParameter("name");
+    nameParam = escapeHtml(nameParam);
     String sessionParam = request.getParameter("session");
+    sessionParam = escapeHtml(sessionParam);
     String apponumParam = request.getParameter("apponum");
+    apponumParam = escapeHtml(apponumParam);
 
     boolean showDeleteConfirmPopup = "drop".equals(action) && idParam != null;
 

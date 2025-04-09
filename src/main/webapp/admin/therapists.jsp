@@ -2,6 +2,7 @@
 <%@ page import="java.sql.*, java.util.Date, java.text.SimpleDateFormat, java.util.Calendar" %>
 <%@ page import="com.google.common.hash.Hashing" %>
 <%@ page import="java.nio.charset.StandardCharsets" %>
+<%@ page import="org.apache.commons.text.StringEscapeUtils" %>
 <%!
     private void closeQuietly(AutoCloseable resource) {
         if (resource != null) {
@@ -11,6 +12,10 @@
                 // Ignore
             }
         }
+    }
+    private String escapeHtml(String input) {
+        if (input == null) return "";
+        return StringEscapeUtils.escapeHtml4(input);
     }
 %>
 <%
@@ -41,8 +46,11 @@
     };
 
     String action = request.getParameter("action");
+    action = escapeHtml(action);
     String id = request.getParameter("id");
+    id = escapeHtml(id);
     String currentError = request.getParameter("error");
+    currentError = escapeHtml(currentError);
 
     String editTherapistId = null;
     String viewTherapistId = null;
@@ -59,12 +67,19 @@
 
         if ("add".equals(action) && request.getMethod().equalsIgnoreCase("POST")) {
             String name = request.getParameter("name");
+            name = escapeHtml(name);
             String nic = request.getParameter("nic");
+            nic = escapeHtml(nic);
             String spec = request.getParameter("spec");
+            spec = escapeHtml(spec);
             String email = request.getParameter("email");
+            email = escapeHtml(email);
             String tele = request.getParameter("Tele");
+            tele = escapeHtml(tele);
             String password = request.getParameter("password");
+            password = escapeHtml(password);
             String cpassword = request.getParameter("cpassword");
+            cpassword = escapeHtml(cpassword);
             String errorCode = "5";
 
             if (password != null && password.equals(cpassword)) {
@@ -118,14 +133,23 @@
 
         if ("edit".equals(action) && request.getMethod().equalsIgnoreCase("POST") && request.getParameter("id00") != null) {
             String editId = request.getParameter("id00");
+            editId = escapeHtml(editId);
             String name = request.getParameter("name");
+            name = escapeHtml(name);
             String nic = request.getParameter("nic");
+            nic = escapeHtml(nic);
             String oldemail = request.getParameter("oldemail");
+            oldemail = escapeHtml(oldemail);
             String spec = request.getParameter("spec");
+            spec = escapeHtml(spec);
             String email = request.getParameter("email");
+            email = escapeHtml(email);
             String tele = request.getParameter("Tele");
+            tele = escapeHtml(tele);
             String password = request.getParameter("password");
+            password = escapeHtml(password);
             String cpassword = request.getParameter("cpassword");
+            cpassword = escapeHtml(cpassword);
             String errorCode = "5";
 
             if (password != null && password.equals(cpassword)) {
@@ -403,6 +427,7 @@
                 <td colspan="4" style="padding-top:10px;">
                     <%
                         String searchKeyword = request.getParameter("search");
+                        searchKeyword = escapeHtml(searchKeyword);
                         String sqlCount;
                         int therapistCount = 0;
                         PreparedStatement psCount = null;

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.sql.*, java.util.*, java.text.*, java.net.URLEncoder" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="org.apache.commons.text.StringEscapeUtils" %>
 <%!
     private void closeQuietly(AutoCloseable resource) {
         if (resource != null) {
@@ -51,6 +52,10 @@
                 return "An unexpected error occurred (" + errorCode + "). Please report this code if the issue persists.";
         }
     }
+    private String escapeHtml(String input) {
+        if (input == null) return "";
+        return StringEscapeUtils.escapeHtml4(input);
+    }
 %>
 <%
     String user = (String) session.getAttribute("user");
@@ -69,13 +74,20 @@
     ResultSet resultSet = null;
 
     String action = request.getParameter("action");
+    action = escapeHtml(action);
     String idParam = request.getParameter("id");
+    idParam = escapeHtml(idParam);
     String nameParam = request.getParameter("name");
+    nameParam = escapeHtml(nameParam);
     String errorParam = request.getParameter("error");
+    errorParam = escapeHtml(errorParam);
     String titleParam = request.getParameter("title");
+    titleParam = escapeHtml(titleParam);
 
     String scheduledateFilter = request.getParameter("sheduledate");
+    scheduledateFilter = escapeHtml(scheduledateFilter);
     String docidFilter = request.getParameter("docid");
+    docidFilter = escapeHtml(docidFilter);
 
     boolean showAddPopup = "add-session".equals(action);
     boolean showAddSuccessPopup = "session-added".equals(action);
@@ -99,10 +111,15 @@
 
         if ("add-session-submit".equals(action) && "POST".equalsIgnoreCase(request.getMethod())) {
             String newTitle = request.getParameter("title");
+            newTitle = escapeHtml(newTitle);
             String newDocId = request.getParameter("docid");
+            newDocId = escapeHtml(newDocId);
             String newNopStr = request.getParameter("nop");
+            newNopStr = escapeHtml(newNopStr);
             String newDate = request.getParameter("date");
+            newDate = escapeHtml(newDate);
             String newTime = request.getParameter("time");
+            newTime = escapeHtml(newTime);
 
             String redirectUrl = "schedule.jsp?action=add-session&error=1";
 
@@ -151,6 +168,7 @@
 
         if ("delete-session-confirm".equals(action) && "POST".equalsIgnoreCase(request.getMethod())) {
             String sessionIdToDelete = request.getParameter("scheduletodelete");
+            sessionIdToDelete = escapeHtml(sessionIdToDelete);
             String redirectUrl = "schedule.jsp";
 
             if (!isNullOrEmpty(sessionIdToDelete)) {
