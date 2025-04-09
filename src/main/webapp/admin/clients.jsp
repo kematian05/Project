@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.sql.*, java.util.Date, java.text.SimpleDateFormat, java.util.Calendar" %>
+<%@ page import="org.apache.commons.text.StringEscapeUtils" %>
 <%!
     private void closeQuietly(AutoCloseable resource) {
         if (resource != null) {
@@ -9,6 +10,10 @@
                 // Handle exception silently
             }
         }
+    }
+    private String escapeHtml(String input) {
+        if (input == null) return "";
+        return StringEscapeUtils.escapeHtml4(input);
     }
 %>
 <%
@@ -287,7 +292,7 @@
                     <form action="clients.jsp" method="post" class="header-search">
                         <input type="search" name="search" class="input-text header-searchbar"
                                placeholder="Search Client Name or Email" list="client"
-                               value="<%= searchKeyword != null ? searchKeyword : "" %>">&nbsp;&nbsp;
+                               value="<%= searchKeyword != null ? escapeHtml(searchKeyword) : "" %>">&nbsp;&nbsp;
                         <datalist id="client">
                             <%
                                 PreparedStatement psDatalist = null;
